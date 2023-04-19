@@ -14,6 +14,8 @@
   </head>
   <body>
     <!-- x-data, x-text, x-html -->
+    <!-- OR Directive where you pass a defined value in a nother location -->
+    <!-- x-text does not understand html elements. if used it print everything as string including the element tags i.e <b><b/> -->
     <div x-data="{name: 'Zura', message: 'Hello <b>World</b>' }">
       <p x-text="name"></p>
       <p x-html="message"></p>
@@ -59,6 +61,7 @@
     </div>
 
     <!-- Scoping -->
+    <!-- OR you define what the last/below/child div should display but it picks it from its parent divs -->
     <div
       x-data="{
         name: 'John', 
@@ -74,6 +77,7 @@
     </div>
 
     <!-- Getters & Setters -->
+    <!-- ON and OFF -->
     <div
       x-data="{
         open: false,
@@ -93,6 +97,8 @@
     </div>
 
     <!-- x-show & x-transition -->
+    <!-- OR elements are there present in DOM. they can be shown or not shown depending on the applied logic -->
+    <!-- it is quick but consumes memory -->
     <div x-data="{ open: false }">
       <button x-on:click="open = ! open">Open/Close</button>
 
@@ -106,6 +112,8 @@
     </div>
 
     <!-- x-if -->
+    <!-- OR elements are not present in DOM. they can be shown or not shown depending on the applied logic -->
+    <!-- it slow but saves memory -->
     <div x-data="{ open: false }">
       <button x-on:click="open = ! open">Open/Close</button>
 
@@ -115,6 +123,7 @@
     </div>
 
     <!-- x-for -->
+    <!-- OR you actually define once  and it will be applied to all elements/values in that range/array -->
     <div
       x-data="{
         posts: [{id: 1, title: 'title 1'}, {id: 2, title: 'title 2'}]
@@ -126,6 +135,7 @@
     </div>
 
     <!-- x-for in range -->
+    <!-- OR you actually define what happens with specific group of values once  and it will be applied to that group in a range /array -->
     <div x-data>
       <template x-for="n in 10">
         <p x-text="n"></p>
@@ -133,6 +143,7 @@
     </div>
 
     <!-- x-bind: class  -->
+    <!-- OR whenever you click a button something is added on top of something/div  -->
     <div x-data="{clicked: false}">
       <button
         class="red"
@@ -157,6 +168,7 @@
     </style>
 
     <!-- x-bind: style -->
+    <!-- OR whenever you click a button something is added on top of something/div  -->
     <div x-data="{clicked: false}">
       <button
         :style="clicked && {'backgroundColor': 'red'}"
@@ -167,6 +179,7 @@
     </div>
 
     <!-- x-bind id -->
+    <!-- OR whenever you click a button another id is added on top of something/div  -->
     <button
       x-data="{id: ''}"
       x-bind:id="id"
@@ -187,6 +200,7 @@
     </div>
 
     <!-- x-on -->
+    <!-- OR something to happen when you start,stop, after some time as your typing, as your scrolling through a div or page -->
     <div x-data @edit="console.log('Edit Clicked')">
       <button @click="console.log('Button 1')">Button 1</button>
       <input type="text" @keyup.enter="console.log('Submit')" />
@@ -204,13 +218,15 @@
     </div>
 
     <!-- x-model -->
+    <!-- Or call it Two way data binding -->
+    <!-- OR typing one location but it is being typed even in another different defined location at real time -->
     <div x-data="{keyword: null}">
       <input
         type="text"
         placeholder="Search for items"
         x-model.debounce.500ms="keyword"
       />
-      <p x-text="keyword"></p>
+      <p x-text="keyword"></p> 
     </div>
 
     <!-- 
@@ -229,6 +245,7 @@
     </div>
 
     <!-- x-effect -->
+    <!-- OR changing certain part of the page or  div without changing  or reloading the whole page -->
     <div x-data="{name: 'Zura', message: null}">
       <p x-effect="message = 'Hello ' + name"></p>
       <p x-text="message"></p>
@@ -236,6 +253,7 @@
     </div>
 
     <!-- x-ignore -->
+    <!-- OR- don't display something/div on front end -->
     <div x-data="{name: 'Zura'}">
       <div x-ignore>
         <p x-text="name"></p>
@@ -243,12 +261,14 @@
     </div>
 
     <!-- x-ref -->
+    <!-- OR   link or relate two things/(input and button) so that on button click something happens to the input box. -->
     <div x-data>
       <input x-ref="inputEmail" type="text" placeholder="Email" />
       <button @click="$refs.inputEmail.style.borderColor = 'red'">Check</button>
     </div>
 
     <!-- x-cloak -->
+    <!-- OR prevent hidden drop down/hidden contents from being displayed(on page loading) until drop-down button clicked. also re-click button to hide the menue  -->
     <div x-data="{open: false}">
       <button @click="open = !open">Open/Close</button>
       <div x-show="open" x-cloak>Modal Content...</div>
@@ -260,6 +280,7 @@
     </style>
 
     <!-- x-teleport -->
+    <!-- OR prevent displayed drop down contents from covring contents of the next div on a page. insteady dispaly this drop down content after the next div contents. -->
     <div x-data>
       <p>Some Content</p>
 
@@ -289,6 +310,7 @@
     <div x-data x-text="$store.currentUser.username"></div>
 
     <!-- $watch -->
+    <!-- OR watching for changes and on button click you print the old values and the new value. -->
     <div
       x-data="{modal: false}"
       x-init="$watch('modal', (val, old) => console.log(val, old))"
@@ -302,6 +324,7 @@
     </div>
 
     <!-- $nextTick -->
+    <!-- OR you click a button and it changes the display of something to option display two i.e from a zura to John -->
     <div x-data="{name: 'Zura'}">
       <button
         @click="
@@ -314,6 +337,7 @@
     </div>
 
     <!-- $root -->
+    <!-- OR on-click display the content of the immediate parent div instead -->
     <div x-data id="1">
       <div>
         <div x-data id="2">
@@ -325,6 +349,7 @@
     </div>
 
     <!-- $data -->
+    <!-- OR accessing data from a given location -->
     <div x-data="dropdown">
       <div>
         <button @click="console.log($data.open)">$data</button>
@@ -332,6 +357,7 @@
     </div>
 
     <!-- $id -->
+    <!-- OR auto generation of unique ids of input values-->
     <div x-data>
       <div x-id="['text-input']">
         <label :for="$id('text-input')" />
